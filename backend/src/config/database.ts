@@ -62,14 +62,14 @@ class Database {
   /**
    * Execute a query with automatic error handling
    */
-  public async query<T = any>(
+  public async query(
     text: string,
     params?: any[]
-  ): Promise<QueryResult<T>> {
+  ): Promise<QueryResult> {
     const pool = this.getPool();
 
     try {
-      const result = await pool.query<T>(text, params);
+      const result = await pool.query(text, params);
       return result;
     } catch (error) {
       console.error('Database query error:', error);
