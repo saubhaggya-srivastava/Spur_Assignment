@@ -19,7 +19,7 @@ export class ConversationRepository {
 
       const values = [dto.id, dto.metadata ? JSON.stringify(dto.metadata) : null];
 
-      const result = await database.query<Conversation>(query, values);
+      const result = await database.query(query, values);
 
       if (result.rows.length === 0) {
         throw new Error('Failed to create conversation');
@@ -43,7 +43,7 @@ export class ConversationRepository {
         WHERE id = $1
       `;
 
-      const result = await database.query<Conversation>(query, [id]);
+      const result = await database.query(query, [id]);
 
       if (result.rows.length === 0) {
         return null;
@@ -67,7 +67,7 @@ export class ConversationRepository {
         ) as exists
       `;
 
-      const result = await database.query<{ exists: boolean }>(query, [id]);
+      const result = await database.query(query, [id]);
 
       return result.rows[0].exists;
     } catch (error) {

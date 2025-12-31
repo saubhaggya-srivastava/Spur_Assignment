@@ -25,7 +25,7 @@ export class MessageRepository {
         dto.token_count ?? null,
       ];
 
-      const result = await database.query<Message>(query, values);
+      const result = await database.query(query, values);
 
       if (result.rows.length === 0) {
         throw new Error('Failed to create message');
@@ -56,7 +56,7 @@ export class MessageRepository {
         ORDER BY created_at ASC
       `;
 
-      const result = await database.query<Message>(query, [conversationId]);
+      const result = await database.query(query, [conversationId]);
 
       return result.rows;
     } catch (error) {
@@ -78,7 +78,7 @@ export class MessageRepository {
         LIMIT $2
       `;
 
-      const result = await database.query<Message>(query, [conversationId, limit]);
+      const result = await database.query(query, [conversationId, limit]);
 
       // Reverse to get chronological order
       return result.rows.reverse();
@@ -99,7 +99,7 @@ export class MessageRepository {
         WHERE conversation_id = $1
       `;
 
-      const result = await database.query<{ count: string }>(query, [conversationId]);
+      const result = await database.query(query, [conversationId]);
 
       return parseInt(result.rows[0].count, 10);
     } catch (error) {
