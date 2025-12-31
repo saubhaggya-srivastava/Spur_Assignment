@@ -21,6 +21,9 @@ async function runMigrations() {
   // Create database connection pool
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false, // Required for Render PostgreSQL
+    },
   });
 
   try {
